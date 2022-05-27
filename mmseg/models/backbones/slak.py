@@ -7,7 +7,6 @@
 import sys, os
 sys.path.append('/home/shiweil/Projects/cutlass/examples/19_large_depthwise_conv2d_torch_extension')
 sys.path.append('../../../')
-from mmcv_custom import load_checkpoint
 import warnings
 from collections import OrderedDict
 import torch
