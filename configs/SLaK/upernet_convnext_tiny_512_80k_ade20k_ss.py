@@ -43,7 +43,7 @@ optimizer = dict(_delete_=True, type='AdamW', lr=2e-4, betas=(0.9, 0.999), weigh
 
 runner = dict(type='IterBasedRunner', max_iters=80000)
 checkpoint_config = dict(by_epoch=False, interval=2000)
-evaluation = dict(interval=2000, metric='mIoU')
+evaluation = dict(interval=10, metric='mIoU')
 
 lr_config = dict(_delete_=True, policy='poly',
                  warmup='linear',
@@ -60,13 +60,3 @@ log_config = dict(
         dict(type='TextLoggerHook', by_epoch=False),
         # dict(type='TensorboardLoggerHook')
     ])
-# do not use mmdet version fp16
-# fp16 = None
-# optimizer_config = dict(
-#     type="DistOptimizerHook",
-#     update_interval=1,
-#     grad_clip=None,
-#     coalesce=True,
-#     bucket_size_mb=-1,
-#     use_fp16=True,
-# )
