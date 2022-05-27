@@ -41,6 +41,10 @@ model = dict(
 
 optimizer = dict(_delete_=True, type='AdamW', lr=2e-4, betas=(0.9, 0.999), weight_decay=0.05, paramwise_cfg=dict(norm_decay_mult=0))
 
+runner = dict(type='IterBasedRunner', max_iters=80000)
+checkpoint_config = dict(by_epoch=False, interval=2000)
+evaluation = dict(interval=2000, metric='mIoU')
+
 lr_config = dict(_delete_=True, policy='poly',
                  warmup='linear',
                  warmup_iters=1500,
@@ -50,7 +54,6 @@ lr_config = dict(_delete_=True, policy='poly',
 # By default, models are trained on 8 GPUs with 2 images per GPU
 data=dict(samples_per_gpu=8)
 
-runner = dict(type='IterBasedRunnerAmp')
 
 # do not use mmdet version fp16
 fp16 = None
