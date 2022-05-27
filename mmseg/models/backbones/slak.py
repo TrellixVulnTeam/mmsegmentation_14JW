@@ -14,7 +14,6 @@ import torch.nn.functional as F
 from timm.models.layers import trunc_normal_, DropPath
 from timm.models.registry import register_model
 from depthwise_conv2d_implicit_gemm import DepthWiseConv2dImplicitGEMM
-from mmcv_custom import load_checkpoint
 from mmseg.utils import get_root_logger
 from ..builder import BACKBONES
 from mmcv.runner import (BaseModule, CheckpointLoader, ModuleList,
