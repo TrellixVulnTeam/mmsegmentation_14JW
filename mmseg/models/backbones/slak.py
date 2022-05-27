@@ -93,8 +93,8 @@ class ReparamLargeKernelConv(nn.Module):
             else:
                 self.lkb_origin = conv_bn(in_channels=in_channels, out_channels=out_channels, kernel_size=kernel_size,
                                           stride=stride, padding=padding, dilation=1, groups=groups)
-            if small_kernel is not None:
-                assert small_kernel <= kernel_size, 'The kernel size for re-param cannot be larger than the large kernel!'
+            if (small_kernel is not None) and small_kernel < kernel_size:
+                # assert small_kernel <= kernel_size, 'The kernel size for re-param cannot be larger than the large kernel!'
                 self.small_conv = conv_bn(in_channels=in_channels, out_channels=out_channels, kernel_size=small_kernel,
                                           stride=stride, padding=small_kernel // 2, groups=groups, dilation=1)
 
@@ -315,7 +315,7 @@ class SLaK(BaseModule):
             for name,weight in self.named_parameters():
 
                 if len(weight.size())==2 or len(weight.size())==4:
-                    print(f"density is {(weight!=0).sum().item()/weight.numel()}")
+                    print(f"density of {name} is {(weight!=0).sum().item()/weight.numel()}")
 
     def forward_features(self, x):
         outs = []
