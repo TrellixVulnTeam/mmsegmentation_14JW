@@ -54,7 +54,12 @@ lr_config = dict(_delete_=True, policy='poly',
 # By default, models are trained on 8 GPUs with 2 images per GPU
 data=dict(samples_per_gpu=8)
 
-
+log_config = dict(
+    interval=10,
+    hooks=[
+        dict(type='TextLoggerHook', by_epoch=False),
+        # dict(type='TensorboardLoggerHook')
+    ])
 # do not use mmdet version fp16
 # fp16 = None
 # optimizer_config = dict(
