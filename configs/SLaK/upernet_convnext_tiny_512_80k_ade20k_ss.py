@@ -12,7 +12,7 @@ _base_ = [
 ]
 crop_size = (512, 512)
 
-checkpoint_file = '/projects/0/prjste21060/projects/LoRA_LK/transfer/convnext_tiny_Rep/51494713/LoRA_ERK_s1.5/120epochs/checkpoint-best.pth'
+checkpoint_file = '/home/luyin/Project/SLaK/LoRA_LK/Checkpoints/submit/120epochs/checkpoint-best.pth'
 
 model = dict(
     backbone=dict(
