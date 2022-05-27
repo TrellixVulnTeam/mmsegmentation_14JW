@@ -28,11 +28,11 @@ model = dict(
     init_cfg=dict(type='Pretrained', checkpoint=checkpoint_file)
     ),
     decode_head=dict(
-        in_channels=[144, 288, 576, 1152],
+        in_channels=[96, 192, 384, 768],
         num_classes=150,
     ),
     auxiliary_head=dict(
-        in_channels=576,
+        in_channels=384,
         num_classes=150
     ), 
     test_cfg = dict(mode='slide', crop_size=crop_size, stride=(341, 341)),
