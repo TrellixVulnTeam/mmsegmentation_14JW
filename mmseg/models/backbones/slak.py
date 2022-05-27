@@ -312,9 +312,10 @@ class SLaK(BaseModule):
             # load state_dict
             load_state_dict(self, state_dict, strict=False, logger=logger)
 
-            for m in self.modules():
-                if len(m.weight.size())==2 or len(m.weight.size())==4:
-                    print(f"density is {(m.weight!=0).sum().item()/m.weight.numel()}")
+            for name,weight in self.named_parameters():
+
+                if len(weight.size())==2 or len(weight.size())==4:
+                    print(f"density is {(weight!=0).sum().item()/weight.numel()}")
 
     def forward_features(self, x):
         outs = []
