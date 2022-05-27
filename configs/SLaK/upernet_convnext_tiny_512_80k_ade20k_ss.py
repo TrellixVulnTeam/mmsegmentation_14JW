@@ -16,7 +16,7 @@ checkpoint_file = '/projects/0/prjste21060/projects/LoRA_LK/transfer/convnext_ti
 
 model = dict(
     backbone=dict(
-        type='ConvNeXt_Rep',
+        type='SLaK',
         in_chans=3,
         depths=[3, 3, 9, 3], 
         dims=[96, 192, 384, 768], 
