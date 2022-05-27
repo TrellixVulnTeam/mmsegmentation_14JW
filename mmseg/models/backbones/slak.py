@@ -6,6 +6,7 @@
 # LICENSE file in the root directory of this source tree.
 import sys, os
 sys.path.append('/home/shiweil/Projects/cutlass/examples/19_large_depthwise_conv2d_torch_extension')
+sys.path.append('../../../')
 import warnings
 from collections import OrderedDict
 import torch
@@ -16,6 +17,7 @@ from timm.models.registry import register_model
 from depthwise_conv2d_implicit_gemm import DepthWiseConv2dImplicitGEMM
 from mmseg.utils import get_root_logger
 from ..builder import BACKBONES
+import mmcv_custom
 from mmcv.runner import (BaseModule, CheckpointLoader, ModuleList,
                          load_state_dict)
 from functools import partial
