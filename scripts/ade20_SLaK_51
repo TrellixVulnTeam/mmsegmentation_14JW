@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --gpus-per-node=4
 #SBATCH --gpus=4
-#SBATCH -t 2-23:59:59
+#SBATCH -t 2-13:59:59
 #SBATCH --exclusive
 #SBATCH --cpus-per-task=72
 #SBATCH -o ADE20_decomp_31.out
@@ -20,7 +20,7 @@ source activate LoRA
 
 
  bash tools/dist_train.sh   configs/SLaK/upernet_slak_tiny_512_80k_ade20k_ss.py 4   \
-  --work-dir ADE20_SLaK_51/ --seed 0 --deterministic
+  --work-dir ADE20_SLaK_51/ --auto-resume  --seed 0 --deterministic
 
 
 source deactivate
