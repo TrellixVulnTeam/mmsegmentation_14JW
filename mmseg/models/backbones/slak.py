@@ -333,6 +333,7 @@ class SLaK(BaseModule):
     def forward_features(self, x):
         if self.sparse:
             self.apply_mask()
+            print('sparsity apply')
         outs = []
         for i in range(4):
             x = self.downsample_layers[i](x)
