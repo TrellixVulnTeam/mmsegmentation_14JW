@@ -207,7 +207,8 @@ class SLaK(BaseModule):
                  LoRA=None,
                  out_indices=[0, 1, 2, 3],
                  pretrained=None,
-                 init_cfg=None):
+                 init_cfg=None,
+                 sparse=None):
         assert not (init_cfg and pretrained), \
             'init_cfg and pretrained cannot be specified at the same time'
         if isinstance(pretrained, str):
@@ -224,6 +225,7 @@ class SLaK(BaseModule):
         dims = [int(x * width_factor) for x in dims]
         self.kernel_size = kernel_size
         self.out_indices = out_indices
+        self.sparse = sparse
         self.downsample_layers = nn.ModuleList()  # stem and 3 intermediate downsampling conv layers
         stem = nn.Sequential(
             nn.Conv2d(in_chans, dims[0], kernel_size=4, stride=4),
@@ -312,12 +314,25 @@ class SLaK(BaseModule):
             # load state_dict
             load_state_dict(self, state_dict, strict=False, logger=logger)
 
-            for name,weight in self.named_parameters():
+            if self.sparse:
+                self.masks = {}
+                for name, weight in self.named_parameters():
+                    if len(weight.size()) == 2 or len(weight.size()) == 4:
+                        self.masks[name] = torch.zeros_like(weight, dtype=torch.float32, requires_grad=False).to('cuda')
 
-                if len(weight.size())==2 or len(weight.size())==4:
-                    print(f"density of {name} is {(weight!=0).sum().item()/weight.numel()}")
+                for name, weight in self.named_parameters():
+                    if name in self.masks:
+                        self.masks[name][:] = (weight != 0.0).float().data.to('cuda')
+                        print(f"density of {name} is {(self.masks[name] != 0).sum().item() / weight.numel()}")
+
+    def apply_mask(self):
+        for name, weight in self.named_parameters():
+            if name in self.masks:
+                weight.data = weight.data * self.masks[name].to(weight.device)
 
     def forward_features(self, x):
+        if self.sparse:
+            self.apply_mask()
         outs = []
         for i in range(4):
             x = self.downsample_layers[i](x)
