@@ -27,6 +27,7 @@ model = dict(
         kernel_size=[51,49,47,13,5],
         LoRA=True,
         width_factor=1.5,
+        sparse=True,
     init_cfg=dict(type='Pretrained', checkpoint=checkpoint_file)
     ),
     decode_head=dict(
