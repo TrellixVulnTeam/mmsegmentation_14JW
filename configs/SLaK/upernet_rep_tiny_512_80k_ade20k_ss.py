@@ -32,7 +32,7 @@ model = dict(
     ),
     decode_head=dict(
         # in_channels=[144, 288, 576, 1152], # 1.5
-        in_channels=[124, 249, 499, 998],
+        in_channels=[96, 192, 384, 768],
         num_classes=150,
     ),
     auxiliary_head=dict(

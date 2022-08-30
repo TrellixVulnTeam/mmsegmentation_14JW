@@ -19,7 +19,7 @@ source activate slak
 #module load PyTorch/1.10.0-foss-2021a-CUDA-11.3.1
 
 
- bash tools/dist_train.sh  configs/SLaK/upernet_rep_tiny_512_80k_ade20k_ss.py 4   \
+ bash tools/dist_train.sh  configs/SLaK/upernet_rep_tiny_512_80k_ade20k_ss.py 1   \
   --work-dir /projects/0/prjste21060/projects/Segmentation/ADE20_slak_rep_80_lw/  --auto-resume  --seed 0 --deterministic
 
 
