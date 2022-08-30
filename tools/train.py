@@ -211,6 +211,12 @@ def main():
 
     logger.info(model)
 
+    para_count = 0
+    for name, para in model.named_parameters():
+        para_count += (para!=0).sum().item()
+    print(f"Total number of parameters are {para_count}")
+
+
     datasets = [build_dataset(cfg.data.train)]
     if len(cfg.workflow) == 2:
         val_dataset = copy.deepcopy(cfg.data.val)

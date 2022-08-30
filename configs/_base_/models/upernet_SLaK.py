@@ -20,7 +20,7 @@ model = dict(
         out_indices=[0, 1, 2, 3],
         kernel_size=[51,49,47,13,5],
         LoRA=True,
-        width_factor=1.5
+        width_factor=1.3
     ),
     decode_head=dict(
         type='UPerHead',

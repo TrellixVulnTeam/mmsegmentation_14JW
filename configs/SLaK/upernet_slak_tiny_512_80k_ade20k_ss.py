@@ -12,7 +12,7 @@ _base_ = [
 ]
 crop_size = (512, 512)
 
-checkpoint_file = '/home/luyin/Project/SLaK/LoRA_LK/Checkpoints/submit/SLaK/120epochs/checkpoint-best.pth'
+checkpoint_file = '~/project_space/LoRA_LK/transfer/convnext_tiny_Rep/51494713/W_S_ana/w1.3_s0.6_snip_100_pr0.3/120epochs_random/checkpoint-best.pth'
 # checkpoint_file = '/home/luyin/Project/SLaK/LoRA_LK/Checkpoints/submit/ConvNeXt/120epochs/checkpoint-best.pth'
 
 model = dict(
@@ -26,26 +26,31 @@ model = dict(
         out_indices=[0, 1, 2, 3],
         kernel_size=[51,49,47,13,5],
         LoRA=True,
-        width_factor=1.5,
+        width_factor=1.3,
         sparse=True,
     init_cfg=dict(type='Pretrained', checkpoint=checkpoint_file)
     ),
     decode_head=dict(
-        in_channels=[144, 288, 576, 1152],
+        # in_channels=[144, 288, 576, 1152], # 1.5
+        in_channels=[124, 249, 499, 998],
         num_classes=150,
     ),
     auxiliary_head=dict(
-        in_channels=576,
+        in_channels=499,
         num_classes=150
     ), 
     test_cfg = dict(mode='slide', crop_size=crop_size, stride=(341, 341)),
 )
 
-optimizer = dict(_delete_=True, type='AdamW', lr=2e-4, betas=(0.9, 0.999), weight_decay=0.05, paramwise_cfg=dict(norm_decay_mult=0))
+optimizer = dict(constructor='LearningRateDecayOptimizerConstructor', _delete_=True, type='AdamW',
+                 lr=0.0001, betas=(0.9, 0.999), weight_decay=0.05,
+                 paramwise_cfg={'decay_rate': 0.9,
+                                'decay_type': 'stage_wise',
+                                'num_layers': 6})
 
 runner = dict(type='IterBasedRunner', max_iters=80000)
 checkpoint_config = dict(by_epoch=False, interval=8000)
-evaluation = dict(interval=8000, metric='mIoU', pre_eval=True)
+evaluation = dict(interval=4000, metric='mIoU')
 
 
 lr_config = dict(_delete_=True, policy='poly',
