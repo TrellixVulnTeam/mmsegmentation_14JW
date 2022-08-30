@@ -36,7 +36,7 @@ model = dict(
         num_classes=150,
     ),
     auxiliary_head=dict(
-        in_channels=499,
+        in_channels=384,
         num_classes=150
     ), 
     test_cfg = dict(mode='slide', crop_size=crop_size, stride=(341, 341)),
