@@ -12,9 +12,7 @@ _base_ = [
 ]
 crop_size = (512, 512)
 
-checkpoint_file = '/projects/0/prjste21060/projects/LoRA_LK/' \
-                  'transfer/convnext_tiny_Rep/61595713/W_S_ana/w1.3_s0.6_snip_100_pr0' \
-                  '.3/120epochs_random/checkpoint-best.pth'
+checkpoint_file = '/projects/0/prjste21060/projects/LoRA_LK/transfer/Kernel_size/31292713/5/Rep/120epochs/checkpoint-best.pth'
 # checkpoint_file = '/home/luyin/Project/SLaK/LoRA_LK/Checkpoints/submit/ConvNeXt/120epochs/checkpoint-best.pth'
 
 model = dict(
@@ -26,10 +24,10 @@ model = dict(
         drop_path_rate=0.1,
         layer_scale_init_value=1.0,
         out_indices=[0, 1, 2, 3],
-        kernel_size=[61,59,57,13,5],
-        LoRA=True,
-        width_factor=1.3,
-        sparse=True,
+        kernel_size=[31,29,27,13,5],
+        LoRA=False,
+        width_factor=1.0,
+        sparse=False,
     init_cfg=dict(type='Pretrained', checkpoint=checkpoint_file)
     ),
     decode_head=dict(
@@ -49,7 +47,6 @@ optimizer = dict(constructor='LearningRateDecayOptimizerConstructor', _delete_=T
                  paramwise_cfg={'decay_rate': 0.9,
                                 'decay_type': 'stage_wise',
                                 'num_layers': 6})
-
 
 runner = dict(type='IterBasedRunner', max_iters=80000)
 checkpoint_config = dict(by_epoch=False, interval=8000)
