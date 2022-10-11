@@ -9,6 +9,17 @@
 #SBATCH --exclusive
 #SBATCH --cpus-per-task=72
 #SBATCH -o ADE20_rep_tiny_80k_layer_wise.out
+#!/bin/bash
+#SBATCH --job-name=ADE20_rep_tiny_80k_layer_wise
+#SBATCH -p gpu
+#SBATCH -N 1
+#SBATCH --ntasks-per-node=1
+#SBATCH --gpus-per-node=4
+#SBATCH --gpus=4
+#SBATCH -t 3-12:00:00
+#SBATCH --exclusive
+#SBATCH --cpus-per-task=72
+#SBATCH -o ADE20_rep_tiny_80k_layer_wise.out
 
 source /home/sliu/miniconda3/etc/profile.d/conda.sh
 source activate slak
