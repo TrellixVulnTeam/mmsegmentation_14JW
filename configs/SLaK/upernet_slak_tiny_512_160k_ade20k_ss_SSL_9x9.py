@@ -25,7 +25,7 @@ model = dict(
         layer_scale_init_value=1.0,
         out_indices=[0, 1, 2, 3],
         kernel_size=[9,9,9,9,100],
-        LoRA=True,
+        LoRA=False,
         width_factor=1.0,
         # sparse=True,
     init_cfg=dict(type='Pretrained', checkpoint=checkpoint_file)

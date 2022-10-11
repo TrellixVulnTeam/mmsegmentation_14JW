@@ -15,7 +15,7 @@ source activate slak
 
 
 
- bash tools/dist_train.sh   configs/upernet_slak_tiny_512_160k_ade20k_ss_SSL_9x9.py 1   \
+ bash tools/dist_train.sh   configs/SLaK/upernet_slak_tiny_512_160k_ade20k_ss_SSL_9x9.py 1   \
   --work-dir /projects/0/prjste21060/projects/Segmentation/ADE20_slak_tiny_9x9_ssl_160/  --auto-resume  --seed 0 --deterministic
 
 
