@@ -11,7 +11,7 @@
 #SBATCH -o ADE20_slak_ssl_9x9_layer_wise.out
 
 source /home/sliu/miniconda3/etc/profile.d/conda.sh
-source activate LoRA
+source activate slak
 
 
 
